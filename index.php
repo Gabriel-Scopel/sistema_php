@@ -1,11 +1,10 @@
 
 <?php
 require 'config.php';
-$lista=[];
-$sql = $pdo->query("SELECT * FROM usuarios");
-if($sql->rowCount()>0){
-    $lista = $sql->fetchAll(PDO::FETCH_ASSOC);
-}
+require 'dao/UsuarioDaoMysql.php';
+
+$usuarioDao = new UsuarioDaoMysql($pdo);
+$lista = $usuarioDao->findAll();
 ?>
 <a href="adicionar.php">Adicionar Usuário</a>
 <table border="1" width="100%">
@@ -18,12 +17,12 @@ if($sql->rowCount()>0){
     <?php
     foreach($lista as $usuario): ?>
     <tr>
-        <td><?=$usuario['id'];?></td>
-        <td><?=$usuario['nome'];?></td>
-        <td><?=$usuario['email'];?></td>
+        <td><?=$usuario->getId();?></td>
+        <td><?=$usuario->getNome();?></td>
+        <td><?=$usuario->getEmail();?></td>
         <td>
-            <a href="editar.php?id=<?=$usuario['id'];?>">[ Editar ]</a> <!--  passando id na url para informar qual usuário será modificado -->
-            <a href="excluir.php?id=<?=$usuario['id'];?>" onclick="return confirm('Confirmar exclusão?')">[ Excluir ]</a>
+            <a href="editar.php?id=<?=$usuario->getId();?>">[ Editar ]</a> <!--  passando id na url para informar qual usuário será modificado -->
+            <a href="excluir.php?id=<?=$usuario->getId();?>" onclick="return confirm('Confirmar exclusão?')">[ Excluir ]</a>
         </td>
     </tr>
     <?php endforeach;?>
