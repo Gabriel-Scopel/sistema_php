@@ -9,7 +9,7 @@ $name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
 if($id && $name && $email){
-  $usuario = $usuarioDao->findById($id);
+  
   $usuario = new Usuario();
   $usuario->setId($id);
   $usuario->setNome($name);
@@ -19,6 +19,6 @@ if($id && $name && $email){
   header("location: index.php");
   exit;
 }else{
-    header("location: adicionar.php?id=".$id);
+    header("location: editar.php?id=".$id);
     exit;
 }

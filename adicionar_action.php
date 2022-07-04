@@ -7,12 +7,12 @@ $name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
 if($name && $email){
-    if($usuarioDao->findByEmail($email) === false){
+    if($usuarioDao->findByEmail($email) === false){ //se ele retornar false é pq não há esse email no banco de dados
         $novoUsuario = new Usuario();
         $novoUsuario->setNome($name);
         $novoUsuario->setEmail($email);
         $usuarioDao->add($novoUsuario);
-        header("location: adicionar.php");
+        header("location: index.php");
         exit;
     }else{
         header("location: adicionar.php");

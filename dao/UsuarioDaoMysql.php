@@ -1,4 +1,5 @@
 <?php
+//fazendo implementação do usuario no banco de dados
 require_once 'models/Usuario.php';
 
 class UsuarioDaoMysql implements UsuarioDAO{
@@ -12,7 +13,7 @@ class UsuarioDaoMysql implements UsuarioDAO{
         $sql->bindValue(':email', $u->getEmail());
         $sql->execute();
 
-        $U->setId($this->pdo->lastInsertId());
+        $u->setId($this->pdo->lastInsertId());
         return $u;
     }
     public function findAll(){
@@ -62,7 +63,7 @@ class UsuarioDaoMysql implements UsuarioDAO{
         }
     }
     public function update(Usuario $u){
-        $sql = $this->pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email");
+        $sql = $this->pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email WHERE id = :id");
         $sql->bindValue(':nome', $u->getNome());
         $sql->bindValue(':email', $u->getEmail());
         $sql->bindValue(':id', $u->getId());

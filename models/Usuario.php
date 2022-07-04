@@ -23,12 +23,12 @@ class Usuario{
         $this->email = strtolower(trim($e));
     }
 }
-
+//interface para padronização de inserção de informações no banco de dados
 interface UsuarioDAO{
     public function add(Usuario $u);
     public function findAll();
     public function findById($id);
-    public function fingByEmail($email);
+    public function findByEmail($email);
     public function update(Usuario $u);
     public function delete($id);
 }
